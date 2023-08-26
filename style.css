@@ -1,0 +1,38 @@
+body {
+    padding: 100px;
+}
+
+.calculator {
+    width: 200px;
+    height: 300px;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.display {
+    text-align: right;
+    flex: 1;
+}
+
+.keypad {
+    display: flex;
+    flex: 3;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+button {
+    height: 20%;
+    flex: initial;
+}
+
+#plus {
+    height: 40%;
+    flex: auto;
+}
