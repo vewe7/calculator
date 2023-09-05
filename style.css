@@ -1,8 +1,11 @@
 body {
     padding: 100px;
+    background-color: #FDF6E3;
+    font-family: 'Lato', sans-serif;
 }
 
 .calculator {
+    
     width: 200px;
     height: 300px;
     margin: auto;
@@ -39,6 +42,7 @@ body {
 button {
     height: 20%;
     flex: initial;
+    font-family: inherit;
 }
 
 #plus {
