@@ -46,6 +46,9 @@ function emptyBuffer() {
 }
 
 function calculate() {
+    if (bufferEmpty)
+        return;
+
     let result = operate(bufferNum, currentNum, currentOp);
     if (result == "Error") {
         reset();
@@ -76,12 +79,41 @@ function reset() {
     displaySecondary.textContent = "";
 }
 
+function inputNum(num) {
+    displayMain.textContent += num.toString();
+    setCurrentNum(parseFloat(displayMain.textContent));
+}
+
+function inputOp(op) {
+    if (bufferEmpty) {
+        setBuffer(currentNum, op);
+        setCurrentNum(0);
+    } else {
+        calculateAndPush(currentOp);
+    }
+}
+
+function inputDelete() {
+    let content = displayMain.textContent;
+    content = content.substring(0, content.length - 1);
+    if (content == "") {
+        setCurrentNum(0);
+    } else {
+        setCurrentNum(parseFloat(content));
+    }
+}
+
+function inputDecimal() {
+    if (!displayMain.textContent.includes(".")) {
+        displayMain.textContent += ".";
+    }
+}
+
 // Event listeners for each numbered button. 
 for (let i = 0; i < 10; i++) {
     button = document.querySelector(`.number[data-num="${i}"]`);
     button.addEventListener("click", () => {
-        displayMain.textContent += i.toString();
-        setCurrentNum(parseFloat(displayMain.textContent));
+        inputNum(i);
     });
 }
 
@@ -91,20 +123,13 @@ for (let i = 0; i < operatorButtons.length; i++) {
     let button = operatorButtons[i];
     let op = button.textContent; 
     button.addEventListener("click", () => {
-        if (bufferEmpty) {
-            setBuffer(currentNum, op);
-            setCurrentNum(0);
-        } else {
-            calculateAndPush(currentOp);
-        }
+        inputOp(op);
     });
 }
 
 // Event listener for equals button
 equals.addEventListener("click", () => {
-    if (!bufferEmpty) {
-        calculate();
-    }
+    calculate();
 });
 
 // Event listener for AC button
@@ -114,13 +139,7 @@ clear.addEventListener("click", () => {
 
 // Event listener for del button 
 del.addEventListener("click", () => {
-    let content = displayMain.textContent;
-    content = content.substring(0, content.length - 1);
-    if (content == "") {
-        setCurrentNum(0);
-    } else {
-        setCurrentNum(parseFloat(content));
-    }
+    inputDelete();
 });
 
 // Event listener for percent button
@@ -130,7 +149,30 @@ percent.addEventListener("click", () => {
 
 // Event listener for decimal button
 decimal.addEventListener("click", () => {
-    if (!displayMain.textContent.includes(".")) {
-        displayMain.textContent += ".";
+    inputDecimal();
+});
+
+// Allow keyboard inputs
+window.addEventListener("keydown", function(e) {
+    if (e.key >= "1" && e.key <= "9") {
+        inputNum(parseInt(e.key));
+    } 
+    else if (e.key == "+" || e.key == "-") {
+        inputOp(e.key);
+    }
+    else if (e.key == "/") {
+        inputOp("÷");
+    }
+    else if (e.key == "*") {
+        inputOp("×");
+    }
+    else if (e.key == ".") {
+        inputDecimal();
+    }
+    else if (e.key == "Enter") {
+        calculate();
+    }
+    else if (e.key == "Backspace") {
+        inputDelete();
     }
 });
