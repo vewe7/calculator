@@ -21,6 +21,7 @@ const equals = document.querySelector("#equals");
 const percent = document.querySelector("#percent");
 const clear = document.querySelector("#clear");
 const del = document.querySelector("#delete");
+const decimal = document.querySelector("#decimal")
 
 let bufferNum = null;
 let currentNum = 0;
@@ -79,7 +80,8 @@ function reset() {
 for (let i = 0; i < 10; i++) {
     button = document.querySelector(`.number[data-num="${i}"]`);
     button.addEventListener("click", () => {
-        setCurrentNum(currentNum * 10 + i);
+        displayMain.textContent += i.toString();
+        setCurrentNum(parseFloat(displayMain.textContent));
     });
 }
 
@@ -126,3 +128,9 @@ percent.addEventListener("click", () => {
     setCurrentNum(currentNum * 0.01);
 });
 
+// Event listener for decimal button
+decimal.addEventListener("click", () => {
+    if (!displayMain.textContent.includes(".")) {
+        displayMain.textContent += ".";
+    }
+});

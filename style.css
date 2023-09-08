@@ -6,27 +6,32 @@ body {
 
 .calculator {
     
-    width: 200px;
-    height: 300px;
+    width: 260px;
+    height: 360px;
     margin: auto;
-
     display: flex;
     flex-direction: column;
+    background-color: #E0DCC7;
+    border: solid;
+    border-width: 5px;
+    border-color: #A6B0A0;
 }
 
 .display {
     text-align: right;
     flex: 1;
-
     display: flex;
     flex-direction: column;
     gap: 3px;
     justify-content: flex-end;
+    padding-right: 5px;
+    background-color: #F3F5D9;
 }
 
 #display-main {
     margin-bottom: 10px;
 }
+
 
 .keypad {
     display: flex;
@@ -42,7 +47,11 @@ body {
 button {
     height: 20%;
     flex: initial;
+    background-color: #FFFBEF;
     font-family: inherit;
+    border: solid;
+    border-radius: 1px;
+    border-color: #FDF6E3;
 }
 
 #plus {
